@@ -235,6 +235,18 @@ def update_student_details(window,frame2,frame3):
     button1_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
     button2_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
 
+def get_delete_student_details(e1,frame_bottom):
+    student_id = e1.get()
+    id_is_valid = sf.is_valid_student_id(student_id)
+    if(id_is_valid):
+        sf.delete_student(student_id)
+        e1.delete(0,tk.END)
+        label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
+        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    else:
+        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
+        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    label_frame_bottom.after(1000,label_frame_bottom.destroy)
 
 
 def delete_student_details(window,frame2,frame3):
@@ -253,19 +265,15 @@ def delete_student_details(window,frame2,frame3):
     frame_bottom.pack(side=tk.BOTTOM,fill=tk.X)
 
     label1_frame_left = tk.Label(master=frame_left,text="Student Id(Req)",font=("Roboto",15),bg="white")
-    label2_frame_left = tk.Label(master=frame_left,text="Name",font=("Roboto",15),bg="white")
 
     entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Delete",font=("Roboto",10),relief=tk.GROOVE)
-    button_frame_bottom.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Delete",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_delete_student_details(entry1_frame_right,frame_bottom))
+    button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     entry1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry2_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
 
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)

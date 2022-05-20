@@ -94,7 +94,21 @@ def update_student(id,name,attribute):
     except:
         print("error")
 
-
+def delete_student(id):
+    query = "DELETE FROM student WHERE id = %s;"
+    val = (str(id),)
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        print("error")
 
 
 
@@ -161,6 +175,28 @@ def update_teacher(id,name,attribute):
         mydb.commit()
     except:
         print("error")
+
+
+def delete_teacher(id):
+    query = "DELETE FROM teacher WHERE id = %s;"
+    val = (str(id),)
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        print("error")
+
+
+
+
+
 
 def input_course_details(id,name):
     query = "INSERT INTO course VALUES (%s,%s);"
