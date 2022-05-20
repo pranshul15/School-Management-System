@@ -49,19 +49,40 @@ def input_student_details(id,name,age,standard,gender,email,contact):
         return False
     return True
 
-# def input_student_details1():
-#     query = "INSERT INTO student VALUES (%s,%s,%s,%s,%s,%s,%s);"
-#     val = ("2001","neha","1","9","neha4359@gmail.com","1234568970","F")
-#     mydb = mysql.connector.connect(
-#         host = "localhost",
-#         user = "root",
-#         password = "15pransh15",
-#         database = "dbms_project_database"
-#     )
-#     mycursor=mydb.cursor()
-#     try:
-#         mycursor.execute(query,val)
-#         mydb.commit()
-#     except:
-#         return False
-#     return True
+
+
+def input_teacher_details(id,name,age,gender,email,contact):
+    query = "INSERT INTO teacher VALUES (%s,%s,%s,%s,%s,%s);"
+    val = (str(id),str(name),str(age),str(email),str(contact),str(gender))
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        return False
+    return True
+
+
+
+def input_course_details(id,name):
+    query = "INSERT INTO course VALUES (%s,%s);"
+    val = (str(id),str(name))
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        return False
+    return True

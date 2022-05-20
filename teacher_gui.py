@@ -1,7 +1,41 @@
 import tkinter as tk
 import main_screen_gui as msg
+import validity_checker as vc
+import sql_func as sf
 
-#teacher
+
+
+def get_add_teacher_details(e1,e2,e3,e4,e5,e6,frame_bottom):
+    teacher_id = e1.get()
+    teacher_name = e2.get()
+    teacher_age = e3.get()
+    teacher_gender = e4.get()
+    teacher_email = e5.get()
+    teacher_contact = e6.get()
+    flag = vc.get_add_teacher_details_check(teacher_id,teacher_name,teacher_age,teacher_gender,teacher_email,teacher_contact)
+    if(flag==True):
+        query = sf.input_teacher_details(teacher_id,teacher_name,teacher_age,teacher_gender,teacher_email,teacher_contact)
+        if(query==True):
+            label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
+            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+            e1.delete(0,tk.END)
+            e2.delete(0,tk.END)
+            e3.delete(0,tk.END)
+            e4.delete(0,tk.END)
+            e5.delete(0,tk.END)
+            e6.delete(0,tk.END)
+        else:
+            label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input Query",font=("Roboto",15),bg="white")
+            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+
+    else:
+        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
+        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    label_frame_bottom.after(1000,label_frame_bottom.destroy)
+
+
+
+
 def add_teacher_details(window,frame2,frame3):
     print("add teacher details")
 
@@ -28,9 +62,6 @@ def add_teacher_details(window,frame2,frame3):
     entry5_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
     entry6_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE)
-    button_frame_bottom.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
     label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
     label3_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
@@ -45,6 +76,8 @@ def add_teacher_details(window,frame2,frame3):
     entry5_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
     entry6_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
 
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_teacher_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,frame_bottom))
+    button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)
     frame_right.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True)

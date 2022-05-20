@@ -1,7 +1,29 @@
 import tkinter as tk
 import main_screen_gui as msg
+import validity_checker as vc
+import sql_func as sf
 
-#course
+def get_add_course_details(e1,e2,frame_bottom):
+    course_id = e1.get()
+    course_name = e2.get()
+    flag = vc.get_add_course_details_check(course_id,course_name)
+    if(flag==True):
+        query = sf.input_course_details(course_id,course_name)
+        if(query==True):
+            label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
+            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+            e1.delete(0,tk.END)
+            e2.delete(0,tk.END)
+        else:
+            label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input Query",font=("Roboto",15),bg="white")
+            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+
+    else:
+        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
+        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    label_frame_bottom.after(1000,label_frame_bottom.destroy)
+
+
 def add_course_details(window,frame2,frame3):
     print("add course details")
     frame2.destroy()
@@ -23,8 +45,8 @@ def add_course_details(window,frame2,frame3):
     entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
     entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE)
-    button_frame_bottom.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_course_details(entry1_frame_right,entry2_frame_right,frame_bottom))
+    button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
     label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)

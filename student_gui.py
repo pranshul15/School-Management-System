@@ -1,4 +1,3 @@
-from cProfile import label
 import tkinter as tk
 import main_screen_gui as msg
 import validity_checker as vc
