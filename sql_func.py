@@ -50,6 +50,18 @@ def input_student_details(id,name,age,standard,gender,email,contact):
     return True
 
 
+def get_student_details():
+    query = "SELECT * FROM student;"
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    mycursor.execute(query)
+    return mycursor.fetchall()
+
 
 def input_teacher_details(id,name,age,gender,email,contact):
     query = "INSERT INTO teacher VALUES (%s,%s,%s,%s,%s,%s);"
@@ -68,6 +80,17 @@ def input_teacher_details(id,name,age,gender,email,contact):
         return False
     return True
 
+def get_teacher_details():
+    query = "SELECT * FROM teacher;"
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    mycursor.execute(query)
+    return mycursor.fetchall()
 
 
 def input_course_details(id,name):

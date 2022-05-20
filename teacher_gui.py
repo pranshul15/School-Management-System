@@ -94,39 +94,45 @@ def add_teacher_details(window,frame2,frame3):
 
 
 
-def view_teacher_details(window,frame2,frame3):
+def view_teacher_details(window,frame2,frame3,k=0):
     print("view teacher details")
     
     frame2.destroy()
-    frame2=tk.Frame(master=window,bg="#e6e6ff")
+    frame2=tk.Frame(master=window,bg="White")
     frame2.pack(fill=tk.BOTH,expand=True)
 
     frame3.destroy()
     frame3=tk.Frame(master=window,bg="#e6e6ff")
     frame3.pack(fill=tk.X,side=tk.BOTTOM)
 
-    frame_left = tk.Frame(master=frame2,bg="white")
-    frame_middle = tk.Frame(master=frame2,bg="white")
-    frame_right = tk.Frame(master=frame2,bg="white")
-    frame_bottom = tk.Frame(master=frame2,bg="white")
-    frame_bottom.pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
+    heading = ("ID","Name","Age","Gender","Email","Contact")
 
-    label1_frame_left = tk.Label(master=frame_left,text="Teacher's Id:",font=("Roboto",15),bg="white")
-    entry1_frame_middle = tk.Entry(master=frame_middle,font=("Roboto",15))
-    button1_frame_right = tk.Button(master=frame_right,text="View",font=("Roboto",10),relief=tk.GROOVE)
-    
-    label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    entry1_frame_middle.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    button1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+    teacher_data = sf.get_teacher_details()
 
-    frame_left.pack(side=tk.LEFT,fill=tk.X,expand=True)
-    frame_middle.pack(side=tk.LEFT,fill=tk.X,expand=True)
-    frame_right.pack(side=tk.LEFT,fill=tk.X,expand=True)
+    for i in range(0,6):
+        frame_vertical_frame2 = tk.Frame(master=frame2,bg="white")
+        label_vertical_frame = tk.Label(master=frame_vertical_frame2,text=heading[i],font=("Roboto",15,"bold"),bg="White")
+        label_vertical_frame.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+        f = k+10 if (k+10)<len(teacher_data) else len(teacher_data)
+        for j in range(k,f):
+            label_vertical_frame_value = tk.Label(master=frame_vertical_frame2,text=teacher_data[j][i],font=("Roboto",12))
+            label_vertical_frame_value.pack(side=tk.TOP,fill=tk.X,expand=True)
+        frame_vertical_frame2.pack(fill=tk.Y,side=tk.LEFT,expand=True)
 
-    button2_frame3 = tk.Button(master=frame3,text="Back",padx=40,pady=3,font=("Roboto",10),command=lambda:teacher_details(window,frame2,frame3),relief=tk.GROOVE)
     button1_frame3 = tk.Button(master=frame3,text="Exit",padx=40,pady=3,font=("Roboto",10),command=window.destroy,relief=tk.GROOVE)
+    button2_frame3 = tk.Button(master=frame3,text="Back",padx=40,pady=3,font=("Roboto",10),command=lambda:teacher_details(window,frame2,frame3),relief=tk.GROOVE)
+    if((k+10)<len(teacher_data)):
+        button3_frame3 = tk.Button(master=frame3,text="Next",padx=40,pady=3,font=("Roboto",10),relief=tk.GROOVE,command=lambda:view_teacher_details(window,frame2,frame3,k+10))
+    else:
+        button3_frame3 = tk.Button(master=frame3,text="Next",padx=40,pady=3,font=("Roboto",10),relief=tk.GROOVE,state=tk.DISABLED)
+    if((k-10)>=0):
+        button4_frame3 = tk.Button(master=frame3,text="Previous",padx=40,pady=3,font=("Roboto",10),relief=tk.GROOVE,command=lambda:view_teacher_details(window,frame2,frame3,k-10))
+    else:
+        button4_frame3 = tk.Button(master=frame3,text="Previous",padx=40,pady=3,font=("Roboto",10),relief=tk.GROOVE,state=tk.DISABLED)
     button1_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
     button2_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
+    button3_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
+    button4_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
 
 
 def update_teacher_details(window,frame2,frame3):

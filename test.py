@@ -16,6 +16,12 @@
 
 # root.mainloop()
 
-check = "pransul5"
+import sql_func as sq
 
-print(check.isalpha())
+data = sq.get_student_details()
+k=0
+f = k+10 if (k+10)<len(data) else len(data)
+
+for i in range(0,7):
+    for j in range(0,f):
+        print(data[j][i])
