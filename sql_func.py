@@ -62,6 +62,43 @@ def get_student_details():
     mycursor.execute(query)
     return mycursor.fetchall()
 
+def is_valid_student_id(student_id):
+    query = "SELECT * FROM student WHERE id = %s;"
+    val = (str(student_id),)
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    mycursor.execute(query,val)
+    if(mycursor.fetchone()):
+        return True
+    print("error valid")
+    return False
+
+def update_student(id,name,attribute):
+    query = "UPDATE student SET "+attribute+" = %s WHERE id = %s;"
+    val = (str(name),str(id))
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        print("error")
+
+
+
+
+
+
 
 def input_teacher_details(id,name,age,gender,email,contact):
     query = "INSERT INTO teacher VALUES (%s,%s,%s,%s,%s,%s);"
@@ -92,6 +129,38 @@ def get_teacher_details():
     mycursor.execute(query)
     return mycursor.fetchall()
 
+
+def is_valid_teacher_id(teacher_id):
+    query = "SELECT * FROM teacher WHERE id = %s;"
+    val = (str(teacher_id),)
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    mycursor.execute(query,val)
+    if(mycursor.fetchone()):
+        return True
+    print("error valid")
+    return False
+
+def update_teacher(id,name,attribute):
+    query = "UPDATE teacher SET "+attribute+" = %s WHERE id = %s;"
+    val = (str(name),str(id))
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        print("error")
 
 def input_course_details(id,name):
     query = "INSERT INTO course VALUES (%s,%s);"
