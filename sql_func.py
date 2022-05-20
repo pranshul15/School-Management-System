@@ -214,3 +214,68 @@ def input_course_details(id,name):
     except:
         return False
     return True
+
+def teacher_course_set(teacher_id,course_id):
+    query = "INSERT INTO teacher_course VALUES (%s,%s);"
+    val = (str(teacher_id),str(course_id))
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        return False
+    return True
+
+def student_course_set(student_id,course_id):
+    query = "INSERT INTO student_course VALUES (%s,%s);"
+    val = (str(student_id),str(course_id))
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        return False
+    return True
+
+def is_valid_course_id(course_id):
+    query = "SELECT * FROM course WHERE id = %s;"
+    val = (str(course_id),)
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    mycursor.execute(query,val)
+    if(mycursor.fetchone()):
+        return True
+    return False
+
+def delete_course(course_id):
+    query = "DELETE FROM course WHERE id = %s;"
+    val = (str(course_id),)
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        user = "root",
+        password = "15pransh15",
+        database = "dbms_project_database"
+    )
+    mycursor=mydb.cursor()
+    try:
+        mycursor.execute(query,val)
+        mydb.commit()
+    except:
+        print("error")
