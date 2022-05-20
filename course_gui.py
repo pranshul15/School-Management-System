@@ -132,6 +132,31 @@ def delete_course_details(window,frame2,frame3):
     frame3=tk.Frame(master=window,bg="#e6e6ff")
     frame3.pack(fill=tk.X,side=tk.BOTTOM)
 
+    frame_left = tk.Frame(master=frame2,bg="white")
+    frame_right = tk.Frame(master=frame2,bg="white")
+    frame_bottom = tk.Frame(master=frame2,bg="white")
+    frame_bottom.pack(side=tk.BOTTOM,fill=tk.X)
+
+    label1_frame_left = tk.Label(master=frame_left,text="Course Id(Req)",font=("Roboto",15),bg="white")
+    label2_frame_left = tk.Label(master=frame_left,text="Name",font=("Roboto",15),bg="white")
+
+    entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
+    entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
+
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Delete",font=("Roboto",10),relief=tk.GROOVE)
+    button_frame_bottom.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+
+    label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+
+    entry1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+    entry2_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+
+
+    frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)
+    frame_right.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True)
+
+
     button2_frame3 = tk.Button(master=frame3,text="Back",padx=40,pady=3,font=("Roboto",10),command=lambda:course_details(window,frame2,frame3),relief=tk.GROOVE)
     button1_frame3 = tk.Button(master=frame3,text="Exit",padx=40,pady=3,font=("Roboto",10),command=window.destroy,relief=tk.GROOVE)
     button1_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
