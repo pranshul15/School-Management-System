@@ -11,10 +11,8 @@
 # ''')
 
 import tkinter as tk
-from tkinter import ttk
-import time
 from tkinter.font import BOLD
-import loader
+import main_screen_gui as msg
 
 def wel_src():
     window = tk.Tk()
@@ -29,6 +27,6 @@ def wel_src():
     label1.pack()
     frame1.pack(fill=tk.BOTH,expand=True)
 
-    window.after(3000,loader.main_screen)
-    window.after(3000,window.destroy)
+    window.after(500,msg.main_screen)
+    window.after(500,window.destroy)
     window.mainloop()
