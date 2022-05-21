@@ -105,7 +105,7 @@ def view_student_details(window,frame2,frame3,k=0):
     frame3=tk.Frame(master=window,bg="#e6e6ff")
     frame3.pack(fill=tk.X,side=tk.BOTTOM)
 
-    heading = ("ID","Name","Age","Standard","Gender","Email","Contact")
+    heading = ("ID","Name","Standard","Age","Gender","Email","Contact")
 
     student_data = sf.get_student_details()
 
