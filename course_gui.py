@@ -1,27 +1,21 @@
 import tkinter as tk
+from tkinter import messagebox
 import main_screen_gui as msg
 import validity_checker as vc
 import sql_func as sf
 
-def get_add_course_details(e1,e2,frame_bottom):
+def get_add_course_details(e1,e2): 
     course_id = e1.get()
     course_name = e2.get()
-    flag = vc.get_add_course_details_check(course_id,course_name)
-    if(flag==True):
-        query = sf.input_course_details(course_id,course_name)
-        if(query==True):
-            label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
-            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-            e1.delete(0,tk.END)
-            e2.delete(0,tk.END)
-        else:
-            label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input Query",font=("Roboto",15),bg="white")
-            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+    query = sf.input_course_details(course_id,course_name)
 
+    if(query==True):
+        messagebox.showinfo(message="Course Added")
+        e1.delete(0,tk.END)
+        e2.delete(0,tk.END)
     else:
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label_frame_bottom.after(1000,label_frame_bottom.destroy)
+        messagebox.showerror(message="Invalid Input")
+
 
 
 def add_course_details(window,frame2,frame3):
@@ -45,7 +39,7 @@ def add_course_details(window,frame2,frame3):
     entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
     entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_course_details(entry1_frame_right,entry2_frame_right,frame_bottom))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_course_details(entry1_frame_right,entry2_frame_right))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
@@ -65,22 +59,18 @@ def add_course_details(window,frame2,frame3):
     button2_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
 
 
-def get_teacher_course_set(e1,e2,frame_bottom):
-    teacher_id = e1.get()
-    course_id = e2.get()
+def get_teacher_course_set(e1,e2):
+    teacher_id = e2.get()
+    course_id = e1.get()
 
 
     query = sf.teacher_course_set(teacher_id,course_id)
     if(query==True):
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        messagebox.showinfo(message="Course for teacher added")
         e1.delete(0,tk.END)
         e2.delete(0,tk.END)
     else:
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input Query",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    label_frame_bottom.after(1000,label_frame_bottom.destroy)
+        messagebox.showerror(message="Invalid input")
 
 def teacher_course_set(window,frame2,frame3):
     frame2.destroy()
@@ -102,7 +92,7 @@ def teacher_course_set(window,frame2,frame3):
     entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
     entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_teacher_course_set(entry1_frame_right,entry2_frame_right,frame_bottom))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_teacher_course_set(entry1_frame_right,entry2_frame_right))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
@@ -123,21 +113,18 @@ def teacher_course_set(window,frame2,frame3):
 
 
 
-def get_student_course_set(e1,e2,frame_bottom):
-    student_id = e1.get()
-    course_id = e2.get()
+def get_student_course_set(e1,e2):
+    course_id = e1.get()
+    student_id = e2.get()
     
     query = sf.student_course_set(student_id,course_id)
     if(query==True):
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        messagebox.showinfo(message="Course for student added")
         e1.delete(0,tk.END)
         e2.delete(0,tk.END)
     else:
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input Query",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        messagebox.showerror(message="Invalid input")
 
-    label_frame_bottom.after(1000,label_frame_bottom.destroy)
 
 def student_course_set(window,frame2,frame3):
     frame2.destroy()
@@ -159,7 +146,7 @@ def student_course_set(window,frame2,frame3):
     entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
     entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_student_course_set(entry1_frame_right,entry2_frame_right,frame_bottom))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_student_course_set(entry1_frame_right,entry2_frame_right))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
@@ -183,6 +170,7 @@ def student_course_set(window,frame2,frame3):
 def get_delete_course_details(e1,frame_bottom):
     course_id = e1.get()
     id_is_valid = sf.is_valid_course_id(course_id)
+    
     if(id_is_valid):
         sf.delete_course(course_id)
         e1.delete(0,tk.END)

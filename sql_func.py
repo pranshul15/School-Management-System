@@ -7,7 +7,7 @@ def sql_connection_with_database():
         user = "root",
         password = "15pransh15"
     )
-
+    
     mycursor = mydb.cursor()
     mycursor.execute("SHOW DATABASES")
 
@@ -18,7 +18,6 @@ def sql_connection_with_database():
             flag = True
             break
 
-    # print(flag)
     if(flag == False):
         mucursor = mydb.cursor()
         mycursor.execute("CREATE DATABASE dbms_project_database")
@@ -78,6 +77,8 @@ def is_valid_student_id(student_id):
     print("error valid")
     return False
 
+
+
 def update_student(id,name,attribute):
     query = "UPDATE student SET "+attribute+" = %s WHERE id = %s;"
     val = (str(name),str(id))
@@ -93,6 +94,8 @@ def update_student(id,name,attribute):
         mydb.commit()
     except:
         print("error")
+
+
 
 def delete_student(id):
     query = "DELETE FROM student WHERE id = %s;"
@@ -216,8 +219,7 @@ def input_course_details(id,name):
     return True
 
 def teacher_course_set(teacher_id,course_id):
-    query = "INSERT INTO teacher_course VALUES (%s,%s);"
-    val = (str(teacher_id),str(course_id))
+    query = "INSERT INTO teacher_course VALUES (%s,%s);" % (teacher_id,course_id)
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
@@ -226,15 +228,14 @@ def teacher_course_set(teacher_id,course_id):
     )
     mycursor=mydb.cursor()
     try:
-        mycursor.execute(query,val)
+        mycursor.execute(query)
         mydb.commit()
     except:
         return False
     return True
 
 def student_course_set(student_id,course_id):
-    query = "INSERT INTO student_course VALUES (%s,%s);"
-    val = (str(student_id),str(course_id))
+    query = "INSERT INTO student_course VALUES (%s,%s);" % (student_id,course_id)
     mydb = mysql.connector.connect(
         host = "localhost",
         user = "root",
@@ -243,7 +244,7 @@ def student_course_set(student_id,course_id):
     )
     mycursor=mydb.cursor()
     try:
-        mycursor.execute(query,val)
+        mycursor.execute(query)
         mydb.commit()
     except:
         return False

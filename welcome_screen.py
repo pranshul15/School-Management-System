@@ -1,15 +1,3 @@
-# print('''\n\n\t****************************
-# \t| School Management System |
-
-# \t****************************
-
-
-
-# \t 1. Add Student Data
-# \t 2. Add Teacher Data
-# \t 3. Add Course Data
-# ''')
-
 import tkinter as tk
 from tkinter.font import BOLD
 import main_screen_gui as msg

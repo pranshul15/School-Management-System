@@ -1,40 +1,3 @@
-# # from tkinter import *
-# # from tkinter import ttk
-
-# # def load_screen():
-# #     root = Tk()
-# #     frm = ttk.Frame(root, padding=10)
-# #     frm.grid()
-# #     ttk.Label(frm, text="Hello World!").grid(column=0, row=0)
-# #     ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
-# #     root.mainloop() 
-# #Importing the tkinter library
-# from tkinter import *
-
-# #Create an instance of tkinter frame
-# splash_win= Tk()
-
-# #Set the title of the window
-# splash_win.title("Splash Screen Example")
-
-# #Define the size of the window or frame
-# splash_win.geometry("700x200")
-
-# #Define the label of the window
-# splash_label= Label(splash_win, text= "School Management System", fg= "green",
-# font= ('Times New Roman', 40)).pack(pady=20)
-# def mainWin():
-#    splash_win.destroy()
-#    win= Tk()
-#    win.title("Main Window")
-#    win.geometry("700x200")
-#    win_label= Label(win, text= "Main Window", font= ('Helvetica', 25), fg= "red").pack(pady=20)
-
-# #Splash Window Timer
-
-# splash_win.after(3000, mainWin)
-
-# mainloop()
 import tkinter as tk
 import student_gui as sg
 import teacher_gui as tg
@@ -80,7 +43,6 @@ def main_screen():
 
     frame3 = tk.Frame(master=window,background="#e6e6ff",height=50)
     frame3.pack(fill=tk.X,side=tk.BOTTOM)
-
 
     button1_frame2 = tk.Button(master=frame2,text="Student\nDetails",font=("Roboto",20),relief=tk.GROOVE,command=lambda: sg.student_details(window,frame2,frame3))
     button2_frame2 = tk.Button(master=frame2,text="Teacher\nDetails",font=("Roboto",20),relief=tk.GROOVE,command=lambda: tg.teacher_details(window,frame2,frame3))

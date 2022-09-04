@@ -1,9 +1,11 @@
+from email import message
 import tkinter as tk
+from tkinter import messagebox
 import main_screen_gui as msg
 import validity_checker as vc
 import sql_func as sf
 
-def get_add_student_details(e1,e2,e3,e4,e5,e6,e7,frame_bottom):
+def get_add_student_details(e1,e2,e3,e4,e5,e6,e7):
     student_id = e1.get()
     student_name = e2.get()
     student_age = e3.get()
@@ -15,8 +17,7 @@ def get_add_student_details(e1,e2,e3,e4,e5,e6,e7,frame_bottom):
     if(flag==True):
         query = sf.input_student_details(student_id,student_name,student_age,student_standard,student_gender,student_email,student_contact)
         if(query==True):
-            label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
-            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+            messagebox.showinfo(message="Student Added")
             e1.delete(0,tk.END)
             e2.delete(0,tk.END)
             e3.delete(0,tk.END)
@@ -25,13 +26,10 @@ def get_add_student_details(e1,e2,e3,e4,e5,e6,e7,frame_bottom):
             e6.delete(0,tk.END)
             e7.delete(0,tk.END)
         else:
-            label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input Query",font=("Roboto",15),bg="white")
-            label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+            messagebox.showerror(message="Invalid Input")
 
     else:
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label_frame_bottom.after(1000,label_frame_bottom.destroy)
+        messagebox.showerror(message="Invalid Input")
 
 
 
@@ -82,7 +80,7 @@ def add_student_details(window,frame2,frame3):
     entry6_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
     entry7_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_student_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,entry7_frame_right,frame_bottom))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_student_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,entry7_frame_right))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)
@@ -105,7 +103,7 @@ def view_student_details(window,frame2,frame3,k=0):
     frame3=tk.Frame(master=window,bg="#e6e6ff")
     frame3.pack(fill=tk.X,side=tk.BOTTOM)
 
-    heading = ("ID","Name","Standard","Age","Gender","Email","Contact")
+    heading = ("ID","Name","Standard","Age","Email","Contact","Gender")
 
     student_data = sf.get_student_details()
 
@@ -136,7 +134,7 @@ def view_student_details(window,frame2,frame3,k=0):
 
 
 
-def get_update_student_details(e1,e2,e3,e4,e5,e6,e7,frame_bottom):
+def get_update_student_details(e1,e2,e3,e4,e5,e6,e7):
     student_id = e1.get()
     student_name = e2.get()
     student_age = e3.get()
@@ -166,12 +164,10 @@ def get_update_student_details(e1,e2,e3,e4,e5,e6,e7,frame_bottom):
         e5.delete(0,tk.END)
         e6.delete(0,tk.END)
         e7.delete(0,tk.END)
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        messagebox.showinfo(message="Student Details Updated")
     else:
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label_frame_bottom.after(1000,label_frame_bottom.destroy)
+        messagebox.showerror(message="Student Details Updated")
+
 
 
 
@@ -206,7 +202,7 @@ def update_student_details(window,frame2,frame3):
     entry6_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
     entry7_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_update_student_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,entry7_frame_right,frame_bottom))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_update_student_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,entry7_frame_right))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
@@ -235,19 +231,15 @@ def update_student_details(window,frame2,frame3):
     button1_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
     button2_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
 
-def get_delete_student_details(e1,frame_bottom):
+def get_delete_student_details(e1):
     student_id = e1.get()
     id_is_valid = sf.is_valid_student_id(student_id)
     if(id_is_valid):
         sf.delete_student(student_id)
         e1.delete(0,tk.END)
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Done",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        messagebox.showinfo(message="Student Deleted")
     else:
-        label_frame_bottom = tk.Label(master=frame_bottom,text="Inalid Input",font=("Roboto",15),bg="white")
-        label_frame_bottom.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label_frame_bottom.after(1000,label_frame_bottom.destroy)
-
+        messagebox.showinfo(message="Invalid Input")
 
 def delete_student_details(window,frame2,frame3):
     print("delete student details")
@@ -268,7 +260,7 @@ def delete_student_details(window,frame2,frame3):
 
     entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Delete",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_delete_student_details(entry1_frame_right,frame_bottom))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Delete",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_delete_student_details(entry1_frame_right))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
