@@ -1,30 +1,24 @@
-from email import message
 import tkinter as tk
 from tkinter import messagebox
 import main_screen_gui as msg
 import validity_checker as vc
 import sql_func as sf
 
-def get_add_student_details(e1,e2,e3,e4,e5,e6,e7):
-    student_id = e1.get()
-    student_name = e2.get()
-    student_age = e3.get()
-    student_standard = e4.get()
-    student_gender = e5.get()
-    student_email = e6.get()
-    student_contact = e7.get()
+def get_add_student_details(entries):
+    student_id = entries[0].get()
+    student_name = entries[1].get()
+    student_age = entries[2].get()
+    student_standard = entries[3].get()
+    student_gender = entries[4].get()
+    student_email = entries[5].get()
+    student_contact = entries[6].get()
     flag = vc.get_add_student_details_check(student_id,student_name,student_age,student_standard,student_gender,student_email,student_contact)
     if(flag==True):
         query = sf.input_student_details(student_id,student_name,student_age,student_standard,student_gender,student_email,student_contact)
         if(query==True):
             messagebox.showinfo(message="Student Added")
-            e1.delete(0,tk.END)
-            e2.delete(0,tk.END)
-            e3.delete(0,tk.END)
-            e4.delete(0,tk.END)
-            e5.delete(0,tk.END)
-            e6.delete(0,tk.END)
-            e7.delete(0,tk.END)
+            for entry in entries:
+                entry.delete(0,tk.END)
         else:
             messagebox.showerror(message="Invalid Input")
 
@@ -48,39 +42,17 @@ def add_student_details(window,frame2,frame3):
     frame_bottom = tk.Frame(master=frame2,bg="white")
     frame_bottom.pack(side=tk.BOTTOM,fill=tk.X)
 
-    label1_frame_left = tk.Label(master=frame_left,text="Student Id",font=("Roboto",15),bg="white")
-    label2_frame_left = tk.Label(master=frame_left,text="Name",font=("Roboto",15),bg="white")
-    label3_frame_left = tk.Label(master=frame_left,text="Age",font=("Roboto",15),bg="white")
-    label4_frame_left = tk.Label(master=frame_left,text="Standard",font=("Roboto",15),bg="white")
-    label5_frame_left = tk.Label(master=frame_left,text="Gender",font=("Roboto",15),bg="white")
-    label6_frame_left = tk.Label(master=frame_left,text="Email",font=("Roboto",15),bg="white")
-    label7_frame_left = tk.Label(master=frame_left,text="Contact",font=("Roboto",15),bg="white")
+    labels = ("Student Id","Name","Age","Standard","Gender","Email","Contact")
+    entries = []
 
-    entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry3_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry4_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry5_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry6_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry7_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
+    for lbl in labels:
+        temp_label = tk.Label(master=frame_left,text=lbl,font=("Roboto",15),bg="white")
+        temp_entry = tk.Entry(master=frame_right,font=("Roboto",15))
+        temp_label.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        temp_entry.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+        entries.append(temp_entry)
 
-    label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label3_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label4_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label5_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label6_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label7_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    entry1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry2_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry3_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry4_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry5_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry6_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry7_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_student_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,entry7_frame_right))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_student_details(entries))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)
@@ -134,14 +106,14 @@ def view_student_details(window,frame2,frame3,k=0):
 
 
 
-def get_update_student_details(e1,e2,e3,e4,e5,e6,e7):
-    student_id = e1.get()
-    student_name = e2.get()
-    student_age = e3.get()
-    student_standard = e4.get()
-    student_gender = e5.get()
-    student_email = e6.get()
-    student_contact = e7.get()
+def get_update_student_details(entries):
+    student_id = entries[0].get()
+    student_name = entries[1].get()
+    student_age = entries[2].get()
+    student_standard = entries[3].get()
+    student_gender = entries[4].get()
+    student_email = entries[5].get()
+    student_contact = entries[6].get()
     id_is_valid = sf.is_valid_student_id(student_id)
     attribute = ("name","age","standard","gender","email","contact")
     if(id_is_valid==True):
@@ -157,13 +129,8 @@ def get_update_student_details(e1,e2,e3,e4,e5,e6,e7):
             sf.update_student(student_id,student_email,attribute[4])
         if(len(str(student_contact))>0):
             sf.update_student(student_id,student_contact,attribute[5])
-        e1.delete(0,tk.END)
-        e2.delete(0,tk.END)
-        e3.delete(0,tk.END)
-        e4.delete(0,tk.END)
-        e5.delete(0,tk.END)
-        e6.delete(0,tk.END)
-        e7.delete(0,tk.END)
+        for entry in entries:
+            entry.delete(0,tk.END)
         messagebox.showinfo(message="Student Details Updated")
     else:
         messagebox.showerror(message="Student Details Updated")
@@ -186,40 +153,18 @@ def update_student_details(window,frame2,frame3):
     frame_bottom = tk.Frame(master=frame2,bg="white")
     frame_bottom.pack(side=tk.BOTTOM,fill=tk.X)
 
-    label1_frame_left = tk.Label(master=frame_left,text="Student Id (Req)",font=("Roboto",15),bg="white")
-    label2_frame_left = tk.Label(master=frame_left,text="Name",font=("Roboto",15),bg="white")
-    label3_frame_left = tk.Label(master=frame_left,text="Age",font=("Roboto",15),bg="white")
-    label4_frame_left = tk.Label(master=frame_left,text="Standard",font=("Roboto",15),bg="white")
-    label5_frame_left = tk.Label(master=frame_left,text="Gender",font=("Roboto",15),bg="white")
-    label6_frame_left = tk.Label(master=frame_left,text="Email",font=("Roboto",15),bg="white")
-    label7_frame_left = tk.Label(master=frame_left,text="Contact",font=("Roboto",15),bg="white")
+    labels = ("Student Id (Req)","Name","Age","Standard","Gender","Email","Contact")
+    entries = []
 
-    entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry3_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry4_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry5_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry6_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry7_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
+    for lbl in labels:
+        temp_label = tk.Label(master=frame_left,text=lbl,font=("Roboto",15),bg="white")
+        temp_entry = tk.Entry(master=frame_right,font=("Roboto",15))
+        temp_label.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        temp_entry.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+        entries.append(temp_entry)
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_update_student_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right,entry7_frame_right))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_update_student_details(entries))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label3_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label4_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label5_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label6_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label7_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    entry1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry2_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry3_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry4_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry5_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry6_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry7_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
 
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)

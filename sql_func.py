@@ -126,6 +126,7 @@ def input_teacher_details(id,name,age,gender,email,contact):
         password = "15pransh15",
         database = "dbms_project_database"
     )
+    print(query)
     mycursor=mydb.cursor()
     try:
         mycursor.execute(query,val)

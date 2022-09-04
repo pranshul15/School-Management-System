@@ -6,28 +6,24 @@ import sql_func as sf
 
 
 
-def get_add_teacher_details(e1,e2,e3,e4,e5,e6):
-    teacher_id = e1.get()
-    teacher_name = e2.get()
-    teacher_age = e3.get()
-    teacher_gender = e4.get()
-    teacher_email = e5.get()
-    teacher_contact = e6.get()
+def get_add_teacher_details(entries):
+    teacher_id = entries[0].get()
+    teacher_name = entries[1].get()
+    teacher_age = entries[2].get()
+    teacher_gender = entries[3].get()
+    teacher_email = entries[4].get()
+    teacher_contact = entries[5].get()
     flag = vc.get_add_teacher_details_check(teacher_id,teacher_name,teacher_age,teacher_gender,teacher_email,teacher_contact)
     if(flag==True):
         query = sf.input_teacher_details(teacher_id,teacher_name,teacher_age,teacher_gender,teacher_email,teacher_contact)
         if(query==True):
-            messagebox.showinfo("Teacher Added")
-            e1.delete(0,tk.END)
-            e2.delete(0,tk.END)
-            e3.delete(0,tk.END)
-            e4.delete(0,tk.END)
-            e5.delete(0,tk.END)
-            e6.delete(0,tk.END)
+            messagebox.showinfo(message="Teacher Added")
+            for entry in entries:
+                entry.delete(0,tk.END)
         else:
-            messagebox.showerror("Invalid Input")
+            messagebox.showerror(message="Invalid Input")
     else:
-        messagebox.showerror("Invalid Input")
+        messagebox.showerror(message="Invalid Input")
 
 
 
@@ -43,35 +39,16 @@ def add_teacher_details(window,frame2,frame3):
     frame_bottom = tk.Frame(master=frame2,bg="white")
     frame_bottom.pack(side=tk.BOTTOM,fill=tk.X)
 
-    label1_frame_left = tk.Label(master=frame_left,text="Teacher Id",font=("Roboto",15),bg="white")
-    label2_frame_left = tk.Label(master=frame_left,text="Name",font=("Roboto",15),bg="white")
-    label3_frame_left = tk.Label(master=frame_left,text="Age",font=("Roboto",15),bg="white")
-    label4_frame_left = tk.Label(master=frame_left,text="Gender",font=("Roboto",15),bg="white")
-    label5_frame_left = tk.Label(master=frame_left,text="Email",font=("Roboto",15),bg="white")
-    label6_frame_left = tk.Label(master=frame_left,text="Contact",font=("Roboto",15),bg="white")
+    labels = ("Teacher Id","First Name","Age","Gender","Email","Contact")
+    entries = []
+    for lbl in labels:
+        temp_label = tk.Label(master=frame_left,text=lbl,font=("Roboto",15),bg="white")
+        temp_entry = tk.Entry(master=frame_right,font=("Roboto",15))
+        temp_label.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        temp_entry.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+        entries.append(temp_entry)
 
-    entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry3_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry4_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry5_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry6_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-
-    label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label3_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label4_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label5_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label6_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    entry1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry2_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry3_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry4_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry5_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry6_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_teacher_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Add",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_add_teacher_details(entries))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)
@@ -130,13 +107,13 @@ def view_teacher_details(window,frame2,frame3,k=0):
     button4_frame3.pack(side=tk.RIGHT,padx=5,pady=5)
 
 
-def get_update_teacher_details(e1,e2,e3,e4,e5,e6):
-    teacher_id = e1.get()
-    teacher_name = e2.get()
-    teacher_age = e3.get()
-    teacher_gender = e4.get()
-    teacher_email = e5.get()
-    teacher_contact = e6.get()
+def get_update_teacher_details(entries):
+    teacher_id = entries[0].get()
+    teacher_name = entries[1].get()
+    teacher_age = entries[2].get()
+    teacher_gender = entries[3].get()
+    teacher_email = entries[4].get()
+    teacher_contact = entries[5].get()
     id_is_valid = sf.is_valid_teacher_id(teacher_id)
     attribute = ("name","age","gender","email","contact")
     if(id_is_valid==True):
@@ -150,12 +127,8 @@ def get_update_teacher_details(e1,e2,e3,e4,e5,e6):
             sf.update_teacher(teacher_id,teacher_email,attribute[3])
         if(len(str(teacher_contact))>0):
             sf.update_teacher(teacher_id,teacher_contact,attribute[4])
-        e1.delete(0,tk.END)
-        e2.delete(0,tk.END)
-        e3.delete(0,tk.END)
-        e4.delete(0,tk.END)
-        e5.delete(0,tk.END)
-        e6.delete(0,tk.END)
+        for entry in entries:
+            entry.delete(0,tk.END)
         messagebox.showinfo(message="Teacher Details Updated")
     else:
         messagebox.showerror(message="Invalid Input")
@@ -173,37 +146,18 @@ def update_teacher_details(window,frame2,frame3):
     frame_bottom = tk.Frame(master=frame2,bg="white")
     frame_bottom.pack(side=tk.BOTTOM,fill=tk.X)
 
-    label1_frame_left = tk.Label(master=frame_left,text="Teacher Id(Req)",font=("Roboto",15),bg="white")
-    label2_frame_left = tk.Label(master=frame_left,text="Name",font=("Roboto",15),bg="white")
-    label3_frame_left = tk.Label(master=frame_left,text="Age",font=("Roboto",15),bg="white")
-    label4_frame_left = tk.Label(master=frame_left,text="Gender",font=("Roboto",15),bg="white")
-    label5_frame_left = tk.Label(master=frame_left,text="Email",font=("Roboto",15),bg="white")
-    label6_frame_left = tk.Label(master=frame_left,text="Contact",font=("Roboto",15),bg="white")
+    labels = ("Teacher Id(Req)","Name","Age","Gender","Email","Contact")
+    entries = []
 
-    entry1_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry2_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry3_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry4_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry5_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
-    entry6_frame_right = tk.Entry(master=frame_right,font=("Roboto",15))
+    for lbl in labels:
+        temp_label = tk.Label(master=frame_left,text=lbl,font=("Roboto",20),bg="white")
+        temp_entry = tk.Entry(master=frame_right,font=("Roboto",20))
+        temp_label.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
+        temp_entry.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
+        entries.append(temp_entry)
 
-    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_update_teacher_details(entry1_frame_right,entry2_frame_right,entry3_frame_right,entry4_frame_right,entry5_frame_right,entry6_frame_right))
+    button_frame_bottom = tk.Button(master=frame_bottom,text="Update",font=("Roboto",10),relief=tk.GROOVE,command=lambda:get_update_teacher_details(entries))
     button_frame_bottom.pack(side=tk.LEFT,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    label1_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label2_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label3_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label4_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label5_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-    label6_frame_left.pack(side=tk.TOP,fill=tk.BOTH,expand=True,padx=10,pady=10)
-
-    entry1_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry2_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry3_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry4_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry5_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-    entry6_frame_right.pack(side=tk.TOP,fill=tk.X,expand=True,padx=10,pady=10)
-
 
     frame_left.pack(side=tk.LEFT,fill=tk.BOTH,expand=True)
     frame_right.pack(side=tk.RIGHT,fill=tk.BOTH,expand=True)
