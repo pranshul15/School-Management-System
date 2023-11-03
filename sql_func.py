@@ -1,6 +1,63 @@
 import mysql.connector
 
 
+def create_tables(mycursor):
+    # create student details
+    sql = """CREATE TABLE student
+(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(30) NOT NULL,
+standard INT NOT NULL,
+age INT NOT NULL,
+email VARCHAR(40),
+contact VARCHAR(10),
+gender VARCHAR(1) NOT NULL
+);"""
+    mycursor.execute(sql)
+    
+    # create teacher table
+    sql = """CREATE TABLE teacher
+(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(30) NOT NULL,
+age INT NOT NULL,
+email VARCHAR(40),
+contact VARCHAR(10),
+gender VARCHAR(1) NOT NULL
+);"""
+    mycursor.execute(sql)
+
+    sql = """CREATE TABLE course
+(
+course_id INT PRIMARY KEY,
+course_name VARCHAR(15)
+);"""
+    mycursor.execute(sql)
+
+    sql = """CREATE TABLE teacher_course
+(
+teacher_id INT,
+course_id INT,
+PRIMARY KEY (teacher_id,course_id),
+FOREIGN KEY(teacher_id) REFERENCES teacher(id) ON DELETE CASCADE,
+FOREIGN KEY(course_id) REFERENCES course(course_id) ON DELETE CASCADE
+);"""
+    mycursor.execute(sql)
+
+
+    sql = """CREATE TABLE student_course(
+student_id INT,
+course_id INT,
+PRIMARY KEY (student_id,course_id),
+FOREIGN KEY (student_id) references student(id) ON DELETE CASCADE,
+FOREIGN KEY (course_id) references course(course_id) ON DELETE CASCADE
+);"""
+
+    mycursor.execute(sql)
+
+
+
+
 def sql_connection_with_database():
     mydb = mysql.connector.connect(
         host = "localhost",
@@ -30,6 +87,20 @@ def sql_connection_with_database():
     )
 
     print("DateBase Connected")
+
+    mycursor = mydb.cursor()
+    mycursor.execute("SHOW TABLES")
+    
+    if len((mycursor.fetchall()))==0:
+        print("Creating table")
+        create_tables(mycursor)
+
+
+
+
+
+
+
 
 def input_student_details(id,name,age,standard,gender,email,contact):
     query = "INSERT INTO student VALUES (%s,%s,%s,%s,%s,%s,%s);"

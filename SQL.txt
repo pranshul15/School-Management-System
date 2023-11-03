@@ -5,8 +5,8 @@ name VARCHAR(30) NOT NULL,
 standard INT NOT NULL,
 age INT NOT NULL,
 email VARCHAR(40),
-gpa DECIMAL(3,2),
-contact VARCHAR(10)
+contact VARCHAR(10),
+gender VARCHAR(1) NOT NULL
 );
 
 CREATE TABLE teacher
@@ -15,50 +15,10 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(30) NOT NULL,
 age INT NOT NULL,
 email VARCHAR(40),
-contact VARCHAR(10)
+contact VARCHAR(10),
+gender VARCHAR(1) NOT NULL
 );
 
-CREATE TABLE class_info
-(
-standard INT,
-teacher_id INT
-);
-
-
-
-ALTER TABLE class_info
-ADD FOREIGN KEY(teacher_id)
-REFERENCES teacher(id)
-ON DELETE SET NULL;
-
-
-
-ALTER TABLE class_info
-MODIFY standard int NOT NULL;
-
-
-
-ALTER TABLE student
-ADD COLUMN gender VARCHAR(1) NOT NULL;
-
-
-
-ALTER TABLE teacher
-ADD COLUMN gender VARCHAR(1) NOT NULL;
-
-
-
-CREATE TABLE student_subject
-(
-student_id INT,
-subject_name VARCHAR(15),
-FOREIGN KEY(student_id) REFERENCES student(id) ON DELETE SET NULL
-);
-
-
-
-DROP TABLE class_info;
-DROP TABLE student_subject;
 
 
 
@@ -84,4 +44,4 @@ CREATE TABLE student_course(
     PRIMARY KEY (student_id,course_id),
     FOREIGN KEY (student_id) references student(id) ON DELETE CASCADE,
     FOREIGN KEY (course_id) references course(course_id) ON DELETE CASCADE
-)
+);
